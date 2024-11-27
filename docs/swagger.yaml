@@ -1,0 +1,403 @@
+openapi: 3.0.3
+info:
+  title: D-Influencers
+  version: 1.0.11
+tags:
+  - name: influencer
+  - name: campaign
+  - name: user
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Add a new user
+      description: Add a new user
+      operationId: createNewUser
+      requestBody:
+        description: Create a new user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Validation exception
+  /login:
+    post:
+      tags:
+        - user
+      summary: Login with user
+      description: Login with user
+      operationId: findAllUser
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized
+  /influencer:
+    post:
+      tags:
+        - influencer
+      summary: Add a new influencer
+      description: Add a new influencer
+      operationId: createNewInfluencer
+      requestBody:
+        description: Create a new influencer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Influencer'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Influencer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Influencer'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Influencer'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Influencer'
+        '422':
+          description: Validation exception
+    get:
+      tags:
+        - influencer
+      summary: Find all influencer
+      description: Find all influencer
+      operationId: findAllInfluencer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Influencer'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Influencer'
+  /campaign:
+    post:
+      tags:
+        - campaign
+      summary: Add a new campaign
+      description: Add a new campaign
+      operationId: createNewCampaign
+      requestBody:
+        description: Create a new campaign
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaign'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Campaign'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Campaign'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '422':
+          description: Validation exception
+    get:
+      tags:
+        - campaign
+      summary: Find all campaign
+      description: Find all campaign
+      operationId: findAllCampaign
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campaign'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campaign'
+  /campaign/{id}/influencers/new:
+    post:
+      tags:
+        - campaign
+      summary: Link an influencer into a campaing
+      description: Link an influencer into a campaing
+      operationId: addInfluencerIntoCampaign
+      parameters:
+        - name: id
+          in: path
+          description: 'The id of a campaign'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create link an influencer into a campaing
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InfluencerCampaign'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/InfluencerCampaign'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InfluencerCampaign'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluencerCampaignReturn'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/InfluencerCampaignReturn'
+        '422':
+          description: Validation exception
+  /campaign/{id}/influencers:
+    get:
+      tags:
+        - campaign
+      summary: Return campaign with all influencers
+      description: Return campaign with all influencers
+      operationId: findCampaignWithInfluencers
+      parameters:
+        - name: id
+          in: path
+          description: 'The id of a campaign'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignWithInfluencers'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignWithInfluencers'
+components:
+  schemas:
+    InfluencerCampaign:
+      required:
+        - influencer
+      properties:
+        influencer:
+          type: integer
+          format: int64
+          example: 12
+      xml:
+        name: influencerCampaign
+    InfluencerCampaignReturn:
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        influencer_id:
+          type: integer
+          format: int64
+          example: 12
+        campaign_id:
+          type: string
+          example: 15
+      xml:
+        name: influencerCampaignReturn
+    CampaignWithInfluencers:
+      properties:
+        campaign:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignWithInfluencer'
+      xml:
+        name: campaignWithInfluencers
+    User:
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Willian Pires
+        email:
+          type: string
+          example: willianp.developer@gmail.com
+        password:
+          type: string
+          example: password
+      xml:
+        name: user
+    Token:
+      properties:
+        token:
+          type: string
+          example: Willian Pires
+        email:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        error:
+          type: boolean
+          example: false
+      xml:
+        name: token
+    Campaign:
+      required:
+        - name
+        - budget
+        - start
+        - end
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Campanha de Treinamento
+        description:
+          type: string
+          example: Descrição completa da Campanha de Treinamento
+        budget:
+          type: number
+          format: int64
+          minimum: 1
+          example: 70000
+        start:
+          type: string
+          format: date
+          example: 2024-11-27
+        end:
+          type: string
+          format: date
+          example: 2024-12-27
+      xml:
+        name: campaign
+    CampaignWithInfluencer:
+      required:
+        - name
+        - budget
+        - start
+        - end
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Campanha de Treinamento
+        description:
+          type: string
+          example: Descrição completa da Campanha de Treinamento
+        budget:
+          type: number
+          format: int64
+          minimum: 1
+          example: 70000
+        start:
+          type: string
+          format: date
+          example: 2024-11-27
+        end:
+          type: string
+          format: date
+          example: 2024-12-27
+        influencers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Influencer'
+      xml:
+        name: campaignWithInfluencer
+    Influencer:
+      required:
+        - name
+        - instagram
+        - followers
+        - category
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Willian
+        instagram:
+          type: string
+          example: willpdc
+        followers:
+          type: integer
+          format: int64
+          minimum: 1
+          example: 55
+        category:
+          type: string
+          example: Tecnologia
+      xml:
+        name: influencer
