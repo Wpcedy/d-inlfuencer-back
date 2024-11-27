@@ -48,3 +48,9 @@ Clicar em File > Import URL e colar a URL abaixo:
 ```sh
 https://raw.githubusercontent.com/Wpcedy/d-inlfuencer-back/main/docs/swagger.yaml
 ```
+
+# Rodando os testes
+```sh
+docker exec -it php-fpm bash
+vendor/bin/phpunit
+```
