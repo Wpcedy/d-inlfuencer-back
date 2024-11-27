@@ -11,7 +11,7 @@ class InfluencerController extends Controller
     {
         $influencers = InfluencerModel::get();
 
-        return response()->json($influencers, 200);
+        return response()->json(['data' => $influencers], 200);
     }
 
     public function new(InfluencerRequest $request)
@@ -20,7 +20,7 @@ class InfluencerController extends Controller
 
         $data = $this->createInfluencer($dataForm);
 
-        return response()->json($data, 200);
+        return response()->json($data, 201);
     }
 
     protected function createInfluencer(array $data)

@@ -108,12 +108,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Influencer'
+                  $ref: '#/components/schemas/InfluencerReturn'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Influencer'
+                  $ref: '#/components/schemas/InfluencerReturn'
   /campaign:
     post:
       tags:
@@ -160,12 +160,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Campaign'
+                  $ref: '#/components/schemas/CampaignReturn'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Campaign'
+                  $ref: '#/components/schemas/CampaignReturn'
   /campaign/{id}/influencers/new:
     post:
       tags:
@@ -401,3 +401,19 @@ components:
           example: Tecnologia
       xml:
         name: influencer
+    InfluencerReturn:
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Influencer'
+      xml:
+        name: influencerReturn
+    CampaignReturn:
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+      xml:
+        name: campaignReturn

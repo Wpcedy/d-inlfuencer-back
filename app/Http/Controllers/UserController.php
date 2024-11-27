@@ -37,7 +37,7 @@ class UserController extends Controller
 
         $data = $this->createUser($dataForm);
 
-        return response()->json($data, 200);
+        return response()->json($data, 201);
     }
 
     protected function createUser(array $data)

@@ -14,7 +14,7 @@ class CampaignController extends Controller
     {
         $campaigns = CampaignModel::get();
 
-        return response()->json($campaigns, 200);
+        return response()->json(['data' => $campaigns], 200);
     }
 
     public function new(CampaignRequest $request)
@@ -23,7 +23,7 @@ class CampaignController extends Controller
 
         $data = $this->createCampaign($dataForm);
 
-        return response()->json($data, 200);
+        return response()->json($data, 201);
     }
 
     protected function createCampaign(array $data)
