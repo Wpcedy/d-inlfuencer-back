@@ -37,3 +37,14 @@ Para testa se o container subiu corretamente basta usar a rota abaixo:
 ```sh
 http://localhost:8080/ping
 ```
+
+## Visualizando rotas
+
+Abrir o link do editor swagger web
+```sh
+https://editor-next.swagger.io/
+```
+Clicar em File > Import URL e colar a URL abaixo:
+```sh
+https://raw.githubusercontent.com/Wpcedy/d-inlfuencer-back/main/docs/swagger.yaml
+```
